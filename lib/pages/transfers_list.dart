@@ -13,9 +13,14 @@ class TransfersList extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context){
+          final Future<Transfer?> future = Navigator.push<Transfer>(context, MaterialPageRoute(builder: (context){
             return NewTransferForm();
           }));
+
+          future.then((newTransfer){
+            debugPrint("Future then");
+            debugPrint(newTransfer.toString());
+          });
         },
         child: const Icon(Icons.add),
       ),

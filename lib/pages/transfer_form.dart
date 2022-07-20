@@ -28,7 +28,7 @@ class NewTransferForm extends StatelessWidget {
             icon: const Icon(Icons.monetization_on),
           ),
           ElevatedButton(
-            onPressed: () => _createTransfer(),
+            onPressed: () => _createTransfer(context),
             child: const Text("Confirm"),
           ),
         ],
@@ -36,13 +36,14 @@ class NewTransferForm extends StatelessWidget {
     );
   }
 
-  void _createTransfer() {
+  void _createTransfer(BuildContext context) {
     final double? amount =
     double.tryParse(_amountFieldController.text);
     final String accountNumber = _accountNumberFieldController.text;
+    if (amount == null && accountNumber.length <= 0) return;
 
-    if (amount != null && accountNumber.length > 0)
-      final _transfer = Transfer(amount, accountNumber);
+    final _transfer = Transfer(amount ?? 0, accountNumber);
+    Navigator.pop(context, _transfer);
   }
 }
 
