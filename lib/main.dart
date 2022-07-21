@@ -1,5 +1,5 @@
-import 'package:bytebank/pages/transfer_form.dart';
 import 'package:bytebank/pages/transfers_list.dart';
+import 'package:bytebank/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: appTheme,
       debugShowCheckedModeBanner: false,
       home: TransfersList(),
     );
