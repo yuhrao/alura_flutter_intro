@@ -14,24 +14,26 @@ class NewTransferForm extends StatelessWidget {
       appBar: AppBar(
         title: const Text("New transaction"),
       ),
-      body: Column(
-        children: [
-          Editor(
-            controller: _accountNumberFieldController,
-            label: "Account Number",
-            placeholder: "0000",
-          ),
-          Editor(
-            controller: _amountFieldController,
-            label: "Amount",
-            placeholder: "1.23",
-            icon: const Icon(Icons.monetization_on),
-          ),
-          ElevatedButton(
-            onPressed: () => _createTransfer(context),
-            child: const Text("Confirm"),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Editor(
+              controller: _accountNumberFieldController,
+              label: "Account Number",
+              placeholder: "0000",
+            ),
+            Editor(
+              controller: _amountFieldController,
+              label: "Amount",
+              placeholder: "1.23",
+              icon: const Icon(Icons.monetization_on),
+            ),
+            ElevatedButton(
+              onPressed: () => _createTransfer(context),
+              child: const Text("Confirm"),
+            ),
+          ],
+        ),
       ),
     );
   }
