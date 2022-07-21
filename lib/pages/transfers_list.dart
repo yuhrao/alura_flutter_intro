@@ -2,9 +2,18 @@ import 'package:bytebank/models/transfer.dart';
 import 'package:bytebank/pages/transfer_form.dart';
 import 'package:flutter/material.dart';
 
-class TransfersList extends StatelessWidget {
-  const TransfersList({Key? key}) : super(key: key);
+class TransfersList extends StatefulWidget {
+  final List<Transfer> _transfers = <Transfer>[];
 
+  TransfersList({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return TransfersListState();
+  }
+}
+
+class TransfersListState extends State<TransfersList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,24 +22,24 @@ class TransfersList extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final Future<Transfer?> future = Navigator.push<Transfer>(context, MaterialPageRoute(builder: (context){
+          final Future<Transfer?> future = Navigator.push<Transfer>(context,
+              MaterialPageRoute(builder: (context) {
             return NewTransferForm();
           }));
 
-          future.then((newTransfer){
-            debugPrint("Future then");
-            debugPrint(newTransfer.toString());
+          future.then((newTransfer) {
+            setState(() {
+              widget._transfers.add(newTransfer ?? Transfer(10, "1222"));
+            });
           });
         },
         child: const Icon(Icons.add),
       ),
-      body: Column(
-        children: [
-          TransferListItem(Transfer(100, "10000")),
-          TransferListItem(Transfer(200, "20000")),
-          TransferListItem(Transfer(300, "30000")),
-          TransferListItem(Transfer(400, "40000")),
-        ],
+      body: ListView.builder(
+        itemCount: widget._transfers.length,
+        itemBuilder: (BuildContext context, int index) {
+          return TransferListItem(widget._transfers[index]);
+        },
       ),
     );
   }
