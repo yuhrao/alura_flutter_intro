@@ -20,7 +20,9 @@ class _ContactsListState extends State<ContactsList> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed("/contacts/new");
+        },
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(title: const Text("Contacts")),
