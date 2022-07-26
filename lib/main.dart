@@ -1,4 +1,4 @@
-import 'package:bytebank/pages/transfers_list.dart';
+import 'package:bytebank/pages/dashboard.dart';
 import 'package:bytebank/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: appTheme,
       debugShowCheckedModeBanner: false,
-      home: TransfersList(),
+      home: Dashboard(),
     );
   }
 }
