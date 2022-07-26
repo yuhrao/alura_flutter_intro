@@ -2,12 +2,7 @@ import 'package:bytebank/models/contact.dart';
 import 'package:flutter/material.dart';
 
 class ContactsList extends StatefulWidget {
-  final List<Contact> _contacts = <Contact>[
-    Contact("Pedrinho", "0001", "01010101-1"),
-    Contact("Pedrinho", "0001", "01010101-1"),
-    Contact("Pedrinho", "0001", "01010101-1"),
-    Contact("Pedrinho", "0001", "01010101-1"),
-  ];
+  final List<Contact> _contacts = <Contact>[];
 
     ContactsList({Key? key}) : super(key: key);
 
@@ -16,12 +11,20 @@ class ContactsList extends StatefulWidget {
 }
 
 class _ContactsListState extends State<ContactsList> {
+  Future<void> _handleNewContact(BuildContext context) async{
+    final result = await Navigator.of(context).pushNamed("/contacts/new");
+    final newContact = result as Contact;
+
+    setState(() {
+      widget._contacts.add(newContact);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed("/contacts/new");
+          _handleNewContact(context);
         },
         child: const Icon(Icons.add),
       ),

@@ -4,4 +4,9 @@ class Contact {
   final String account_branch;
 
   Contact(this.name, this.account_number, this.account_branch);
+
+  @override
+  String toString() {
+    return 'Contact{name: $name, account_number: $account_number, account_branch: $account_branch}';
+  }
 }

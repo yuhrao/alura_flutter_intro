@@ -28,9 +28,15 @@ class NewTransferForm extends StatelessWidget {
               placeholder: "1.23",
               icon: const Icon(Icons.monetization_on),
             ),
-            ElevatedButton(
-              onPressed: () => _createTransfer(context),
-              child: const Text("Confirm"),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: SizedBox(
+                width: double.maxFinite,
+                child: ElevatedButton(
+                  onPressed: () => _createTransfer(context),
+                  child: const Text("Confirm"),
+                ),
+              ),
             ),
           ],
         ),
