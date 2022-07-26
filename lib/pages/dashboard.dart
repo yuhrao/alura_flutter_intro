@@ -15,21 +15,24 @@ class Dashboard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Image.asset("assets/bytebank_logo.png"),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              DashboardItem(
-                title: "Contacts",
-                iconData: Icons.people,
-                navigateTo: "/contacts",
-              ),
-              DashboardItem(
-                title: "Transfers",
-                iconData: Icons.currency_exchange,
-                navigateTo: "/transfers",
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                DashboardItem(
+                  title: "Contacts",
+                  iconData: Icons.people,
+                  navigateTo: "/contacts",
+                ),
+                DashboardItem(
+                  title: "Transfers",
+                  iconData: Icons.currency_exchange,
+                  navigateTo: "/transfers",
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -42,7 +45,8 @@ class DashboardItem extends StatelessWidget {
   final String title;
   final String? navigateTo;
 
-  const DashboardItem({this.iconData, required this.title, this.navigateTo, Key? key})
+  const DashboardItem(
+      {this.iconData, required this.title, this.navigateTo, Key? key})
       : super(key: key);
 
   @override
@@ -71,24 +75,21 @@ class DashboardItem extends StatelessWidget {
     return Material(
       color: Theme.of(context).primaryColor,
       child: InkWell(
-        onTap: (){
-          if (navigateTo != null){
+        onTap: () {
+          if (navigateTo != null) {
             Navigator.of(context).pushNamed(navigateTo!);
           }
         },
-        child: Padding(
+        child: Container(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            padding: const EdgeInsets.all(8.0),
-            height: 100,
-            width: 150,
-            child: Column(
-              mainAxisAlignment: iconData != null
-                  ? MainAxisAlignment.spaceBetween
-                  : MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: widgets,
-            ),
+          height: 100,
+          width: 150,
+          child: Column(
+            mainAxisAlignment: iconData != null
+                ? MainAxisAlignment.spaceBetween
+                : MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: widgets,
           ),
         ),
       ),
