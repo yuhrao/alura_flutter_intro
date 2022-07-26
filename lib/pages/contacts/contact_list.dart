@@ -1,24 +1,12 @@
+import 'package:bytebank/database/contacts.dart';
 import 'package:bytebank/models/contact.dart';
 import 'package:flutter/material.dart';
 
-class ContactsList extends StatefulWidget {
+class ContactsList extends StatelessWidget {
   final List<Contact> _contacts = <Contact>[];
 
-    ContactsList({Key? key}) : super(key: key);
+  ContactsList({Key? key}) : super(key: key);
 
-  @override
-  State<ContactsList> createState() => _ContactsListState();
-}
-
-class _ContactsListState extends State<ContactsList> {
-  Future<void> _handleNewContact(BuildContext context) async{
-    final result = await Navigator.of(context).pushNamed("/contacts/new");
-    final newContact = result as Contact;
-
-    setState(() {
-      widget._contacts.add(newContact);
-    });
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,13 +17,22 @@ class _ContactsListState extends State<ContactsList> {
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(title: const Text("Contacts")),
-      body: ListView.builder(
-        itemCount: widget._contacts.length,
-        itemBuilder: (BuildContext ctx, int idx) {
-          return ContactListItem(widget._contacts[idx]);
+      body: FutureBuilder<List<Contact>>(
+        future: listContacts(),
+        builder:(context, snapshot) {
+          return ListView.builder(
+            itemCount: snapshot.data?.length ?? 0,
+            itemBuilder: (BuildContext ctx, int idx) {
+              return ContactListItem(snapshot.data![idx]);
+            },
+          );
         },
       ),
     );
+  }
+
+  Future<void> _handleNewContact(BuildContext context) async {
+    await Navigator.of(context).pushNamed("/contacts/new");
   }
 }
 
