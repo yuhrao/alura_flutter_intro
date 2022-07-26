@@ -1,3 +1,4 @@
+import 'package:bytebank/database/contacts.dart';
 import 'package:bytebank/models/contact.dart';
 import 'package:flutter/material.dart';
 
@@ -6,10 +7,12 @@ class NewContactForm extends StatelessWidget {
   final TextEditingController accountBranchController = TextEditingController();
   final TextEditingController accountNumberController = TextEditingController();
 
+  NewContactForm({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("New Contact")),
+      appBar: AppBar(title: const Text("New Contact")),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -35,7 +38,14 @@ class NewContactForm extends StatelessWidget {
               child: SizedBox(
                 width: double.maxFinite,
                 child: ElevatedButton(
-                  onPressed: () => _createContact(context),
+                  onPressed: () {
+                    _createContact(context).then(
+                      (_) {
+                        // This force the list to update
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
                   child: const Text("Confirm"),
                 ),
               ),
@@ -57,7 +67,7 @@ class NewContactForm extends StatelessWidget {
       );
   }
 
-  _createContact(BuildContext context) {
+  Future<void> _createContact(BuildContext context) async {
     final String fullName = fullNameController.value.text;
     final String accountBranchNumber = accountBranchController.value.text;
     final String accountNumber = accountNumberController.value.text;
@@ -77,9 +87,11 @@ class NewContactForm extends StatelessWidget {
       return;
     }
 
-    Navigator.of(context).pop(Contact(name: fullName, accountBranch: accountBranchNumber, accountNumber: accountNumber));
+    await saveContact(Contact(
+        name: fullName,
+        accountBranch: accountBranchNumber,
+        accountNumber: accountNumber));
   }
-
 }
 
 class Editor extends StatelessWidget {
@@ -90,12 +102,13 @@ class Editor extends StatelessWidget {
   final TextInputType? keyboardType;
 
   const Editor({
+    Key? key,
     required this.controller,
     required this.label,
     this.placeholder,
     this.icon,
     this.keyboardType,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

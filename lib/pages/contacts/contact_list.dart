@@ -3,9 +3,8 @@ import 'package:bytebank/models/contact.dart';
 import 'package:flutter/material.dart';
 
 class ContactsList extends StatelessWidget {
-  final List<Contact> _contacts = <Contact>[];
 
-  ContactsList({Key? key}) : super(key: key);
+  const ContactsList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +19,7 @@ class ContactsList extends StatelessWidget {
       body: FutureBuilder<List<Contact>>(
         future: listContacts(),
         builder:(context, snapshot) {
+          debugPrint(snapshot.connectionState.toString());
           return ListView.builder(
             itemCount: snapshot.data?.length ?? 0,
             itemBuilder: (BuildContext ctx, int idx) {
@@ -31,8 +31,8 @@ class ContactsList extends StatelessWidget {
     );
   }
 
-  Future<void> _handleNewContact(BuildContext context) async {
-    await Navigator.of(context).pushNamed("/contacts/new");
+  _handleNewContact(BuildContext context) {
+    Navigator.of(context).pushNamed("/contacts/new");
   }
 }
 
