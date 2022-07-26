@@ -1,5 +1,4 @@
 import 'package:bytebank/models/transfer.dart';
-import 'package:bytebank/pages/transfer_form.dart';
 import 'package:flutter/material.dart';
 
 class TransfersList extends StatefulWidget {
@@ -14,6 +13,17 @@ class TransfersList extends StatefulWidget {
 }
 
 class TransfersListState extends State<TransfersList> {
+
+  Future<void> _goToNewTransferForm (BuildContext context) async{
+    final newTransfer = await Navigator.of(context).pushNamed("/transfers/new");
+
+    if (newTransfer != null){
+      setState(() {
+        widget._transfers.add(newTransfer as Transfer);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,16 +32,7 @@ class TransfersListState extends State<TransfersList> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final Future<Transfer?> future = Navigator.push<Transfer>(context,
-              MaterialPageRoute(builder: (context) {
-            return NewTransferForm();
-          }));
-
-          future.then((newTransfer) {
-            setState(() {
-              widget._transfers.add(newTransfer ?? Transfer(10, "1222"));
-            });
-          });
+          _goToNewTransferForm(context);
         },
         child: const Icon(Icons.add),
       ),
@@ -48,7 +49,7 @@ class TransfersListState extends State<TransfersList> {
 class TransferListItem extends StatelessWidget {
   final Transfer _transfer;
 
-  TransferListItem(this._transfer);
+  const TransferListItem(this._transfer, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
