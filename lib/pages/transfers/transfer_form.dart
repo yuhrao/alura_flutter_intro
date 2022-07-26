@@ -50,7 +50,7 @@ class NewTransferForm extends StatelessWidget {
     final String accountNumber = _accountNumberFieldController.text;
     if (amount == null && accountNumber.isEmpty) return;
 
-    final transfer = Transfer(amount ?? 0, accountNumber);
+    final transfer = Transfer(amount: amount ?? 0, accountNumber: accountNumber);
     Navigator.pop(context, transfer);
   }
 }

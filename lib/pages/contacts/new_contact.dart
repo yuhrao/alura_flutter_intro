@@ -77,7 +77,7 @@ class NewContactForm extends StatelessWidget {
       return;
     }
 
-    Navigator.of(context).pop(Contact(fullName, accountBranchNumber, accountNumber));
+    Navigator.of(context).pop(Contact(name: fullName, accountBranch: accountBranchNumber, accountNumber: accountNumber));
   }
 
 }

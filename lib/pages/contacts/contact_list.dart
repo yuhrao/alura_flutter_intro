@@ -53,7 +53,7 @@ class ContactListItem extends StatelessWidget {
           style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.w800),
         ),
         subtitle: Text(
-            "Branch: ${contact.account_branch} Number: ${contact.account_number}",
+            "Branch: ${contact.accountBranch} Number: ${contact.accountNumber}",
             style: const TextStyle(color: Colors.grey)),
       ),
     );

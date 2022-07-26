@@ -1,11 +1,12 @@
 class Transfer {
+  final int? id;
   final double amount;
   final String accountNumber;
 
-  Transfer(this.amount, this.accountNumber);
+  Transfer({this.id, required this.amount, required this.accountNumber});
 
   @override
   String toString() {
-    return 'Transfer{amount: $amount, accountNumber: $accountNumber}';
+    return 'Transfer{id: $id, amount: $amount, accountNumber: $accountNumber}';
   }
 }
